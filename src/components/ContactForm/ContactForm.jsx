@@ -1,4 +1,3 @@
-import propTypes from "prop-types";
 import { useState } from "react";
 
 import styles from "./contact-form.module.css"
