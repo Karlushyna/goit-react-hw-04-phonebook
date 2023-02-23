@@ -1,32 +1,37 @@
 import propTypes from "prop-types";
-import { Component } from "react";
+import { useState } from "react";
 
 import styles from "./contact-form.module.css"
 
-export class ContactForm extends Component {
-    state = {
-    name: '',
-    number: '',
-    };   
+const ContactForm = ({handleSubmit}) => {
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
     
-    handleChange = e => {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
+
+    const handleChangeName = e => {
+        const { value } = e.target;
+        setName(value);
     };
 
-    handleSubmit = e => {
+    const handleChangeNumber = e => {
+        const { value } = e.target;
+        setNumber(value);
+    };
+
+    const handleFormSubmit = e => {
         e.preventDefault();
         const form = e.currentTarget;
-        this.props.handleSubmit(this.state);
+        handleSubmit({ name: name, number: number });
         form.reset();
-    }
+    
+    };
 
-    render() {
-        const { name, number } = this.state
-        return (
-            <form className={styles.contactForm} onSubmit={this.handleSubmit}>
-                <label className={styles.contactFormLabel}>Name</label>
-                <input
+
+
+    return (
+        <form className={styles.contactForm} onSubmit={handleFormSubmit}>
+            <label className={styles.contactFormLabel}>Name</label>
+            <input
                 className={styles.contactFormName}
                 type="text"
                 name="name"
@@ -36,9 +41,10 @@ export class ContactForm extends Component {
                 required
                 placeholder="Enter name"
                 value={name}
-                onChange={this.handleChange}
+                onChange={handleChangeName}
                 />
-                <label className={styles.contactFormLabel}>Number </label>
+
+            <label className={styles.contactFormLabel}>Number </label>
                 <input
                 className={styles.contactFormNumber}
                 type="tel"
@@ -48,23 +54,18 @@ export class ContactForm extends Component {
                 required
                 placeholder="Enter phone number"
                 value={number}
-                onChange={this.handleChange}
+                onChange={handleChangeNumber}
             />
 
                 <button className={styles.contactFormButton} type="submit">
                     Add contact
                 </button>
-            </form>
-        )
-    }
+
+        </form>
+    )
+
+
 }
 
 export default ContactForm;
-
-ContactForm.propTypes = {
-    handleSubmit: propTypes.func.isRequired,
-}
-
-
-
 
