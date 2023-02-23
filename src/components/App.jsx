@@ -19,7 +19,6 @@ export const App = () => {
   const [firstFlag, setFirstFlag] = useState(true);
 
   const [filter, setFilter] = useState('');
-  // useEffect(() => {}, []);
 
   useEffect(() => {
     if (firstFlag) {
